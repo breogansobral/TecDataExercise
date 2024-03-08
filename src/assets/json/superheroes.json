@@ -1,0 +1,22 @@
+{
+  "superheroes": [
+    {
+      "id": 1,
+      "nombre": "Superhéroe 1",
+      "elemento": "Fuego",
+      "poderes": ["Volar", "Super fuerza"],
+      "color": "Rojo",
+      "edad": 30,
+      "lugar": "Ciudad Gótica"
+    },
+    {
+      "id": 2,
+      "nombre": "Superhéroe 2",
+      "elemento": "Agua",
+      "poderes": ["Nadar", "Controlar el agua"],
+      "color": "Azul",
+      "edad": 25,
+      "lugar": "Atlántida"
+    }
+  ]
+}
