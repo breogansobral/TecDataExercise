@@ -7,7 +7,8 @@
       "poderes": ["Volar", "Super fuerza"],
       "color": "Rojo",
       "edad": 30,
-      "lugar": "Ciudad Gótica"
+      "lugar": "Ciudad Gótica",
+      "imgUrl": "assets/img/prueba.png"
     },
     {
       "id": 2,
@@ -16,7 +17,8 @@
       "poderes": ["Nadar", "Controlar el agua"],
       "color": "Azul",
       "edad": 25,
-      "lugar": "Atlántida"
+      "lugar": "Atlántida",
+      "imgUrl": "assets/img/prueba.png"
     }
   ]
 }

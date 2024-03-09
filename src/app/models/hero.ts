@@ -6,4 +6,5 @@ export interface Hero {
   color: string;
   edad: number;
   lugar: string;
+  imgUrl: string;
 }

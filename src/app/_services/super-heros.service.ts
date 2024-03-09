@@ -8,20 +8,20 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class SuperheroesService {
+export class SuperHerosService {
   private jsonUrl = environment.jsonUrl;
 
   constructor(private http: HttpClient) { }
 
-  getSuperheroes(): Observable<Hero[]> {
+  getSuperheros(): Observable<Hero[]> {
     return this.http.get<{ superheroes: Hero[] }>(this.jsonUrl).pipe(
       map(response => response.superheroes)
     );
   }
 
   getSuperheroById(id: number): Observable<Hero | undefined>{
-    return this.getSuperheroes().pipe(
-      map(heroes => heroes.find(hero => hero.id === id))
+    return this.getSuperheros().pipe(
+      map(heros => heros.find(hero => hero.id === id))
     );
   }
 }

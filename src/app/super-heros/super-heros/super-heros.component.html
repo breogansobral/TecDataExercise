@@ -1,3 +1,21 @@
 <div class="super-heros">
-  <p>super-heros works!</p>
+  <!-- super-heroes.component.html -->
+  <div class="heroes-container">
+    <mat-card class="hero-card" *ngFor="let hero of superheros">
+      <mat-card-header>
+        <div mat-card-avatar class="hero-image" [style.background-image]="'url(' + hero.imgUrl + ')'"></div>
+        <mat-card-title>{{ hero.nombre }}</mat-card-title>
+        <mat-card-subtitle>{{ hero.elemento }}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="hero.imgUrl" alt="Photo of {{ hero.nombre }}">
+      <mat-card-content>
+        <p>Edad: {{ hero.edad }}</p>
+        <p>Lugar: {{ hero.lugar }}</p>
+        <p>Poderes:</p>
+        <ul>
+          <li *ngFor="let poder of hero.poderes">{{ poder }}</li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

@@ -6,6 +6,9 @@
 /out-tsc
 /bazel-out
 
+# MariaDB
+/mariadb
+
 # Node
 /node_modules
 npm-debug.log

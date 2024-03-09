@@ -1,1 +1,1 @@
-.super-heros{margin-left:200px}
+.super-heros{margin-left:200px}.heroes-container{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}.hero-card{width:300px}.hero-image{background-size:cover;background-position:center}

@@ -1,0 +1,19 @@
+version: '3.1'
+
+services:
+  mariadb:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: mi_contraseña_segura
+      MARIADB_DATABASE: mi_base_de_datos
+      MARIADB_USER: mi_usuario
+      MARIADB_PASSWORD: contraseña_de_mi_usuario
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mariadb:/var/lib/mysql
+      - ./bbdd:/docker-entrypoint-initdb.d
+
+volumes:
+  mariadb:
