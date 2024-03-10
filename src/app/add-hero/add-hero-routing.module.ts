@@ -7,6 +7,10 @@ const routes: Routes = [
     path: '',
     component: AddHeroComponent
   },
+  {
+    path: ':id',
+    component: AddHeroComponent
+  },
 ];
 
 @NgModule({

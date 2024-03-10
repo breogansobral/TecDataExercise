@@ -11,6 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -25,7 +28,11 @@ import { MatChipsModule } from '@angular/material/chips';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatChipsModule
+    MatChipsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   exports: [
     CommonModule,
@@ -39,7 +46,11 @@ import { MatChipsModule } from '@angular/material/chips';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatChipsModule
+    MatChipsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ]
  })
  export class SharedModule { }

@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { SuperherosService } from './superheros.service';
 import { Superhero } from './entities/superhero.entity';
 import { CreateSuperheroDto } from './dto/create-superhero.dto';
+import { UpdateSuperheroDto } from './dto/update-superhero.dto';
 
 @Controller('superheros')
 export class SuperherosController {
@@ -26,4 +27,19 @@ export class SuperherosController {
   create(@Body() createSuperheroDto: CreateSuperheroDto) {
     return this.superherosService.create(createSuperheroDto);
   }
+
+  @Delete(':id')
+  deleteSuperhero(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.superherosService.delete(id);
+  }
+
+  @Patch(':id')
+  async updateSuperhero(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateSuperheroDto: UpdateSuperheroDto,
+  ): Promise<Superhero> {
+    return this.superherosService.updateSuperhero(id, updateSuperheroDto);
+  }
+
 }
+

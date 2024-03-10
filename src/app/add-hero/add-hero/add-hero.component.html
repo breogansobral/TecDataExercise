@@ -1,4 +1,7 @@
-<form [formGroup]="addHero" (ngSubmit)="onSubmit()" class="hero-form">
+<div *ngIf="isLoading" class="spinner-container">
+  <mat-spinner></mat-spinner>
+</div>
+<form [formGroup]="addHero" (ngSubmit)="onSubmit()" class="hero-form" *ngIf="!isLoading">
   <!-- Campos individuales para Hero -->
   <mat-form-field appearance="fill">
     <mat-label>Nombre</mat-label>
@@ -20,7 +23,7 @@
   <div class="form-row">
     <mat-form-field appearance="fill">
       <mat-label>Edad</mat-label>
-      <input type="number" matInput formControlName="age">
+      <input matInput type="number" [min]="0" matInput formControlName="age">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -31,7 +34,7 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Imagen (URL)</mat-label>
-    <input matInput formControlName="img">
+    <input matInput class="image-url" [readonly]="true" formControlName="img">
   </mat-form-field>
 
   <!-- Sección de Poderes ajustada para ocupar el ancho completo -->

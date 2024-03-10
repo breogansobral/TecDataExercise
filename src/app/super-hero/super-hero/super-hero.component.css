@@ -1,5 +1,5 @@
 .hero-card {
-  width: 300px;
+  width: 400px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.35);
 }
 
@@ -29,4 +29,33 @@ mat-icon {
 
 mat-card-content {
   padding: 8px;
+}
+
+.card-actions {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
+.card-actions mat-icon {
+  font-size: 24px;
+}
+
+.card-actions .edit-button mat-icon {
+  color: #8f8df7;
+}
+
+.card-actions .delete-button mat-icon {
+  color: #f8c27b;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .hero-card {
+    width: 350px;
+  }
 }

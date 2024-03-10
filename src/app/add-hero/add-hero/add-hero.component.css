@@ -41,3 +41,16 @@ mat-form-field {
     gap: 15px;
   }
 }
+
+input[matInput]:not(.image-url) {
+  text-transform: capitalize;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc( 100vh - 90px);
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 1000;
+}

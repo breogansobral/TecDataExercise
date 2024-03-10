@@ -26,4 +26,12 @@ export class SuperHerosService {
   addSuperhero(superhero: Hero): Observable<Object> {
     return this.http.post(`${this.API_URL}superheros`, superhero);
   }
+
+  deleteSuperhero(id: number): Observable<any> {
+    return this.http.delete(`${this.API_URL}superheros/${id}`);
+  }
+
+  updateSuperhero(id: number, superhero: Hero): Observable<Hero> {
+    return this.http.patch<Hero>(`${this.API_URL}superheros/${id}`, superhero);
+  }
 }
