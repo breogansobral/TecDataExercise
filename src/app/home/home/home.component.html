@@ -3,12 +3,24 @@
     <mat-sidenav #drawer class="sidenav" fixedInViewport
         [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
         [mode]="(isHandset$ | async) ? 'over' : 'side'"
-        [opened]="(isHandset$ | async) === false">
-      <mat-toolbar>Menu</mat-toolbar>
+        [opened]="(isHandset$ | async) === false"
+        (backdropClick)="closeSidenav()"> <!-- Aquí agregamos el evento para cerrar el sidenav -->
       <mat-nav-list>
-        <a mat-list-item href="#">Link 1</a>
-        <a mat-list-item href="#">Link 2</a>
-        <a mat-list-item href="#">Link 3</a>
+        <form class="contenedor">
+          <!-- Suponiendo que esto esté en tu home.component.html u otro template relevante -->
+          <button type="button" mat-raised-button color="primary" [routerLink]="!toggleAddButton ?  ['/home/add-hero'] : ['/home/super-heros']">
+            {{ !toggleAddButton ? 'Añadir Héroe': 'Lista Héroes'}}
+          </button>
+          <mat-form-field appearance="fill" class="filtro">
+            <mat-label>Filtrar</mat-label>
+            <input matInput
+                placeholder="Escribe para filtrar"
+                [formControl]="searchControl">
+            <button mat-icon-button matSuffix>
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </form>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -23,8 +35,7 @@
         </button>
         <span>TecDataExercise</span>
       </mat-toolbar>
-      <!-- Add Content Here -->
+      <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
-  <router-outlet></router-outlet>
 </div>

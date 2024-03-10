@@ -1,0 +1,19 @@
+<mat-card class="hero-card">
+  <mat-card-header>
+    <div mat-card-avatar class="hero-image" [style.background-image]="'url(assets/img/' + hero.img + ')'"></div>
+    <mat-card-title>{{ hero.name }}</mat-card-title>
+    <mat-card-subtitle>{{ hero.element }}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src]="'assets/img/' + hero.img" alt="Photo of {{ hero.name }}">
+  <mat-card-content>
+    <p><mat-icon color="primary">calendar_today</mat-icon> Edad: <span class="hero-detail">{{ hero.age }}</span></p>
+    <p><mat-icon color="primary">place</mat-icon> Lugar: <span class="hero-detail">{{ hero.place }}</span></p>
+    <p><mat-icon color="primary">flash_on</mat-icon> Poderes:
+      <span class="hero-powers" *ngFor="let power of hero.powers; let last = last">
+        {{ power.power }}<span *ngIf="!last">, </span>
+      </span>
+    </p>
+  </mat-card-content>
+
+</mat-card>
+

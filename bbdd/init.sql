@@ -1,34 +1,37 @@
 -- Crear base de datos si no existe (equivalente a esquema en PostgreSQL)
-CREATE DATABASE IF NOT EXISTS superheros;
-USE superheros;
+CREATE DATABASE IF NOT EXISTS tu_base_de_datos;
+USE tu_base_de_datos;
 
--- Crear tabla superheros
-CREATE TABLE IF NOT EXISTS superheros (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255),
-    element VARCHAR(255),
-    color VARCHAR(255),
-    age INT,
-    place VARCHAR(255),
-    img VARCHAR(255)
-) ENGINE=InnoDB;
+CREATE TABLE IF NOT EXISTS `superhero` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `element` varchar(255) NOT NULL,
+  `color` varchar(255) NOT NULL,
+  `age` int(11) NOT NULL,
+  `place` varchar(255) NOT NULL,
+  `img` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Crear tabla powers
-CREATE TABLE IF NOT EXISTS powers (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    superhero_id INT,
-    power VARCHAR(255),
-    FOREIGN KEY (superhero_id) REFERENCES superheros(id)
-) ENGINE=InnoDB;
+CREATE TABLE IF NOT EXISTS `power` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `power` varchar(255) NOT NULL,
+  `superheroId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_power_superhero` (`superheroId`),
+  CONSTRAINT `fk_power_superhero` FOREIGN KEY (`superheroId`) REFERENCES `superhero` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Insertar datos de prueba en superheros
-INSERT INTO superheros (name, element, color, age, place, img) VALUES
-('Hero1', 'Fire', 'Red', 30, 'City1', 'img1.jpg'),
-('Hero2', 'Water', 'Blue', 25, 'City2', 'img2.jpg');
 
--- Insertar datos de prueba en powers
-INSERT INTO powers (superhero_id, power) VALUES
-(1, 'Flying'),
-(1, 'Super Strength'),
-(2, 'Invisibility');
+-- Insertando superhéroes
+INSERT INTO `superhero` (`name`, `element`, `color`, `age`, `place`, `img`) VALUES
+('Superhero 1', 'Fuego', 'Rojo', 30, 'Ciudad 1', 'prueba.png'),
+('Superhero 2', 'Agua', 'Azul', 25, 'Ciudad 2', 'prueba.png');
+
+-- Asumiendo que los IDs de los superhéroes insertados son 1 y 2, insertamos sus poderes
+INSERT INTO `power` (`power`, `superheroId`) VALUES
+('Volar', 1),
+('Super fuerza', 1),
+('Invisibilidad', 2);
+
 

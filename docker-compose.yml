@@ -1,19 +1,42 @@
-version: '3.1'
-
+version: '3.8'
 services:
   mariadb:
+    container_name: mariadb
     image: mariadb
-    restart: always
     environment:
-      MARIADB_ROOT_PASSWORD: mi_contraseña_segura
-      MARIADB_DATABASE: mi_base_de_datos
-      MARIADB_USER: mi_usuario
-      MARIADB_PASSWORD: contraseña_de_mi_usuario
+      MARIADB_ROOT_PASSWORD: tu_contraseña
+      MARIADB_DATABASE: tu_base_de_datos
+      MARIADB_USER: tu_usuario
+      MARIADB_PASSWORD: tu_contraseña
     ports:
       - "3306:3306"
     volumes:
-      - ./mariadb:/var/lib/mysql
+      - db_data:/var/lib/mysql
       - ./bbdd:/docker-entrypoint-initdb.d
-
+  nestjs_app:
+    container_name: nestjs_app
+    build:
+      context: .  # Contexto de construcción actual
+      dockerfile: Dockerfile  # Ruta al Dockerfile dentro de la subcarpeta
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mariadb
+    environment:
+      DATABASE_HOST: mariadb
+      DATABASE_USER: tu_usuario
+      DATABASE_PASSWORD: tu_contraseña
+      DATABASE_NAME: tu_base_de_datos
+  # angular_app:
+  #   image: node:20 # Usa la imagen de Node.js como base
+  #   container_name: angular_app
+  #   ports:
+  #     - "4200:4200"
+  #   volumes:
+  #     - ./:/app # Monta el directorio raíz en /app dentro del contenedor
+  #   working_dir: /app
+  #   command: sh -c "npm install && npx ng serve --host 0.0.0.0 --port 4200 --open"
+  #   depends_on:
+  #     - nestjs_app
 volumes:
-  mariadb:
+  db_data:

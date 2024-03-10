@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Power } from 'src/powers/entities/power.entity';
 
-@Entity('superheros')
+@Entity()
 export class Superhero {
   @PrimaryGeneratedColumn()
   id: number;
@@ -24,6 +24,8 @@ export class Superhero {
   @Column()
   img: string;
 
-  @OneToMany(() => Power, (power) => power.superhero)
+  @OneToMany(() => Power, (power) => power.superhero, {
+    cascade: true,
+  })
   powers: Power[];
 }

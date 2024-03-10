@@ -1,10 +1,12 @@
+import { Power } from "./power";
+
 export interface Hero {
   id: number;
-  nombre: string;
-  elemento: string;
-  poderes: string[];
+  name: string;
+  element: string;
   color: string;
-  edad: number;
-  lugar: string;
-  imgUrl: string;
+  age: number;
+  place: string;
+  img: string;
+  powers: Power[];
 }

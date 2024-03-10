@@ -9,19 +9,21 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SuperHerosService {
-  private jsonUrl = environment.jsonUrl;
+  private API_URL = environment.API_URL;
 
   constructor(private http: HttpClient) { }
 
   getSuperheros(): Observable<Hero[]> {
-    return this.http.get<{ superheroes: Hero[] }>(this.jsonUrl).pipe(
-      map(response => response.superheroes)
-    );
+    return this.http.get< Hero[]>(`${this.API_URL}superheros`);
   }
 
   getSuperheroById(id: number): Observable<Hero | undefined>{
     return this.getSuperheros().pipe(
       map(heros => heros.find(hero => hero.id === id))
     );
+  }
+
+  addSuperhero(superhero: Hero): Observable<Object> {
+    return this.http.post(`${this.API_URL}superheros`, superhero);
   }
 }

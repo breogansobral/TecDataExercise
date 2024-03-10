@@ -1,0 +1,37 @@
+/* add-hero.component.css */
+.hero-form
+  display: flex
+  flex-direction: column
+  gap: 20px
+  max-width: 600px
+  margin: 50px auto
+  height: calc( 100% - 50px )
+
+.form-row
+  display: flex
+  flex-wrap: wrap
+  gap: 20px
+
+.powers-full-width, .form-row
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))
+  gap: 20px
+  align-items: baseline
+
+.power-input
+  display: flex
+  align-items: center
+  gap: 10px
+
+mat-form-field
+  width: 100%
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px)
+  .form-row, .powers-full-width
+    grid-template-columns: 1fr
+
+
+  .hero-form
+    gap: 15px
+

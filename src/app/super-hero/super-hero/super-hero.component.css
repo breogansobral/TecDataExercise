@@ -1,0 +1,32 @@
+.hero-card {
+  width: 300px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+.hero-image {
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-detail {
+  font-weight: bold;
+  color: #673ab7;
+}
+
+.hero-powers {
+  color: #673ab7;
+  cursor: pointer;
+}
+
+.hero-powers:hover {
+  color: #ffd740;
+}
+
+mat-icon {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+mat-card-content {
+  padding: 8px;
+}

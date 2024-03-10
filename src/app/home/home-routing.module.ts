@@ -12,6 +12,10 @@ const routes: Routes = [
           import('src/app/super-heros/super-heros.module').then((file) => file.SuperHerosModule),
       },
       {
+        path: 'add-hero',
+        loadChildren: () => import('src/app/add-hero/add-hero.module').then(m => m.AddHeroModule)
+      },
+      {
         path: '',
         redirectTo: 'super-heros',
         pathMatch: 'full',

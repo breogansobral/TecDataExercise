@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  jsonUrl: 'assets/json/superheroes.json'
+  API_URL: 'http://localhost:3000/'
 };

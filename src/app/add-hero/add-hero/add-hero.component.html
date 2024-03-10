@@ -1,0 +1,52 @@
+<form [formGroup]="addHero" (ngSubmit)="onSubmit()" class="hero-form">
+  <!-- Campos individuales para Hero -->
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+
+  <div class="form-row">
+    <mat-form-field appearance="fill">
+      <mat-label>Elemento</mat-label>
+      <input matInput formControlName="element">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Color</mat-label>
+      <input matInput formControlName="color">
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <mat-form-field appearance="fill">
+      <mat-label>Edad</mat-label>
+      <input type="number" matInput formControlName="age">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Lugar</mat-label>
+      <input matInput formControlName="place">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Imagen (URL)</mat-label>
+    <input matInput formControlName="img">
+  </mat-form-field>
+
+  <!-- Sección de Poderes ajustada para ocupar el ancho completo -->
+  <div formArrayName="powers" class="powers-full-width">
+    <div *ngFor="let power of powers.controls; let i = index" class="power-input">
+      <mat-form-field appearance="fill">
+        <mat-label>Poder {{i + 1}}</mat-label>
+        <input matInput [formControlName]="i">
+      </mat-form-field>
+      <button mat-mini-fab color="warn" type="button" (click)="removePower($event, i)">
+        <mat-icon>remove</mat-icon>
+      </button>
+    </div>
+    <button mat-raised-button color="accent" type="button" (click)="addPower($event)">+ Añadir Poder</button>
+  </div>
+  <button mat-raised-button color="primary" type="button" (click)="onSubmit()" [disabled]="!addHero.valid">Guardar Héroe</button>
+
+</form>
