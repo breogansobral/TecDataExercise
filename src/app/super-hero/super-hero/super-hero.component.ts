@@ -23,7 +23,6 @@ export class SuperHeroComponent {
   ) {}
 
   editHero(hero: Hero) {
-    console.log(hero);
     this.router.navigate([`/home/add-hero/${hero.id}`]);
   }
 
@@ -37,7 +36,6 @@ export class SuperHeroComponent {
       if (result) {
         this.superHerosService.deleteSuperhero(hero.id).subscribe({
           next: () => {
-            console.log('Superhéroe borrado con éxito');
             this.snackBar.open('Superhéroe borrado exitosamente!', 'Cerrar', {
               duration: 2000,
             });

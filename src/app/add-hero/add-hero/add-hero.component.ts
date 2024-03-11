@@ -100,7 +100,6 @@ export class AddHeroComponent implements OnInit {
   addSuperhero(hero: Hero) {
     this.superheroesService.addSuperhero(hero).subscribe({
       next: (response) => {
-        console.log('Superhéroe añadido', response);
         this.router.navigate(['/home/super-heros']);
         this.snackBar.open('Superhéroe añadido exitosamente!', 'Cerrar', {
           duration: 2000,
@@ -119,7 +118,6 @@ export class AddHeroComponent implements OnInit {
   updateSuperhero(hero: Hero) {
     this.superheroesService.updateSuperhero(this.hero ? this.hero.id : 0, hero).subscribe({
       next: (response) => {
-        console.log('Superhéroe modificado', response);
         this.router.navigate(['/home/super-heros']);
         this.snackBar.open('Superhéroe modificado exitosamente!', 'Cerrar', {
           duration: 2000,

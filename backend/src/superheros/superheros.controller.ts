@@ -12,8 +12,6 @@ export class SuperherosController {
   @Get()
   findAll(): Promise<Superhero[]> {
     // Endpoint para encontrar y devolver todos los superhéroes
-    this.superherosService.findAll()
-      .then(res => console.log(res))
     return this.superherosService.findAll();
   }
 

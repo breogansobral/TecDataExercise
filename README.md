@@ -1,27 +1,53 @@
 # TecDataExercise
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.12.
+Welcome to TecDataExercise, an integrated project that showcases a comprehensive stack including a MariaDB database, a backend developed with NestJS, and a frontend crafted using Angular. This setup is designed to run within Docker containers, facilitating both deployment and local testing through an encapsulated and consistent environment.
 
-## Development server
+## Prerequisites
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+To ensure a smooth experience with TecDataExercise, you'll need Docker installed on your system. Docker orchestrates the containers for the database, backend, and frontend services, allowing them to communicate seamlessly.
 
-## Code scaffolding
+### Installing Docker
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Windows Users**: Grab Docker Desktop from the [official Docker website](https://www.docker.com/products/docker-desktop). Follow the instructions there to install it on your machine.
 
-## Build
+- **Linux Users**: Installation varies by distribution. For Ubuntu, you might run:
+  
+  ```bash
+  sudo apt update
+  sudo apt install docker.io
+  ```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+  Don't forget to start and enable the Docker service:
+  
+  ```bash
+  sudo systemctl start docker
+  sudo systemctl enable docker
+  ```
 
-## Running unit tests
+## Running the Project
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Get your local version of TecDataExercise up and running by navigating to the project's root directory and executing:
 
-## Running end-to-end tests
+```bash
+docker-compose up --build
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+This will build and initiate containers for the MariaDB database, the NestJS backend, and the Angular frontend, making the full application accessible locally.
 
-## Further help
+## Running Tests
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+With the containers up, you can proceed to run frontend tests. Simply execute the following at the root of the project:
+
+```bash
+ng test
+```
+
+## Cleanup
+
+After testing or running the project, you might want to clean up the environment. Do so by running:
+
+```bash
+docker-compose down -v
+```
+
+This command halts and removes all containers, along with their associated volumes, ensuring a clean slate.

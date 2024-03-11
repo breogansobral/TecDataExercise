@@ -57,8 +57,6 @@ export class SuperherosService {
 
     const { name, element, color, age, place, img, powers } = updateSuperheroDto;
 
-    console.log('SUPRHERODTO',updateSuperheroDto);
-
     if (name) superhero.name = name;
     if (element) superhero.element = element;
     if (color) superhero.color = color;
