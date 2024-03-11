@@ -13,10 +13,14 @@ import { Power } from 'src/app/models/power';
   styleUrls: ['./add-hero.component.css']
 })
 export class AddHeroComponent implements OnInit {
+  superHeroService(superHeroService: any, arg1: string) {
+    throw new Error('Method not implemented.');
+  }
   addHero!: FormGroup;
   isLoading: boolean = true;
   defaultImg: string = 'prueba.png';
   hero: Hero | undefined;
+  bounceTime: number = 500;
 
   constructor(
     private fb: FormBuilder,
@@ -26,9 +30,24 @@ export class AddHeroComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
     const segments = this.router.url.split('/');
     const lastSegment = segments[segments.length - 1];
-    this.superheroesService.getSuperheroById(+lastSegment)
+    this.initForm(+lastSegment);
+  }
+
+  initForm(lastSegment: number) {
+    this.addHero = this.fb.group({
+      name: [ '' , Validators.required],
+      element: [ '' , Validators.required],
+      color: [ '' , Validators.required],
+      age: [ '' , [Validators.required, Validators.min(1)]],
+      place: [ '' , Validators.required],
+      img: ['prueba.png', Validators.required],
+      powers: this.fb.array([...this.createPower()])
+    });
+
+    this.superheroesService.getSuperheroById(lastSegment)
       .subscribe({
         next: (hero: Hero | undefined) => {
           this.hero = hero;
@@ -43,14 +62,14 @@ export class AddHeroComponent implements OnInit {
           });
           setTimeout(() => {
             this.isLoading = false;
-          }, 1000);
+          }, this.bounceTime);
 
         },
         error: error => {
           console.log(error);
           setTimeout(() => {
             this.isLoading = false;
-          }, 1000);
+          }, this.bounceTime);
         }
       });
   }
@@ -70,15 +89,11 @@ export class AddHeroComponent implements OnInit {
     return formArray;
   }
 
-  addPower(event: Event): void {
-    event.stopImmediatePropagation();
-    event.stopPropagation();
+  addPower(): void {
     this.powers.push(this.createPower()[0]);
   }
 
-  removePower(event: Event, index: number): void {
-    event.stopImmediatePropagation();
-    event.stopPropagation();
+  removePower(index: number): void {
     this.powers.removeAt(index);
   }
 

@@ -1,4 +1,4 @@
-# Usar la imagen oficial de Node.js versión 14 como imagen base
+# Usar la imagen oficial de Node.js versión 20 como imagen base
 FROM node:20
 
 # Establecer el directorio de trabajo en el contenedor
@@ -21,3 +21,4 @@ EXPOSE 3000
 
 # Ejecutar la aplicación
 CMD ["node", "dist/main"]
+

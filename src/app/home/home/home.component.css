@@ -31,6 +31,10 @@ input[matInput] {
   text-transform: capitalize;
 }
 
+input[matInput]::placeholder {
+  font-size: 12 px;
+}
+
 /* input-filtrado.component.css o styles.css para estilos globales */
 .contenedor {
   display: flex;

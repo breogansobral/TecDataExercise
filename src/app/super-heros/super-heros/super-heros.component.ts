@@ -9,11 +9,12 @@ import { Hero } from 'src/app/models/hero';
   templateUrl: './super-heros.component.html',
   styleUrls: ['./super-heros.component.sass']
 })
-export class SuperheroesComponent implements OnInit, OnDestroy {
+export class SuperherosComponent implements OnInit, OnDestroy {
   superheros: Hero[] = [];
   filteredSuperheros: Hero[] = [];
   subscriptions: Subscription[] = [];
   isLoading = true;
+  bounceTime: number = 500;
 
   constructor(
     private superherosService: SuperHerosService,
@@ -31,19 +32,19 @@ export class SuperheroesComponent implements OnInit, OnDestroy {
     // Suscripción para obtener superhéroes y luego aplicar el filtro inicial
     let subscription = this.superherosService.getSuperheros().subscribe({
       next: (data) => {
-         // Aplica el filtro inicial después de cargar los superhéroes
+        this.isLoading = true;
         setTimeout(() => {
           this.superheros = data;
           this.applyFilter('');
           this.isLoading = false;
-        }, 1000)
-         // Asumiendo que tienes una variable isLoading para controlar el spinner
+        }, this.bounceTime)
       },
       error: (error) => {
         console.error(error);
+        this.isLoading = true;
         setTimeout(() => {
           this.isLoading = false;
-        }, 1000) // Asegúrate de manejar el estado de carga también en caso de error
+        }, this.bounceTime)
       }
     });
 
@@ -53,18 +54,20 @@ export class SuperheroesComponent implements OnInit, OnDestroy {
     // Función para aplicar el filtro
     subscription = this.sharedService.currentFilter.subscribe({
       next: (filterValue: string) => {
+        this.isLoading = true;
         setTimeout(() => {
           this.applyFilter(filterValue);
           this.isLoading = false;
-        }, 1000)
+        }, this.bounceTime)
 
         // No necesitas ajustar isLoading aquí a menos que estés cargando algo específico
       },
       error: (error) => {
         console.error(error);
+        this.isLoading = true;
         setTimeout(() => {
           this.isLoading = false;
-        }, 1000) // Asegúrate de manejar el estado de carga también en caso de error
+        }, this.bounceTime) // Asegúrate de manejar el estado de carga también en caso de error
       }
     });
 

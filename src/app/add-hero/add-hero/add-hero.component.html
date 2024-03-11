@@ -44,11 +44,11 @@
         <mat-label>Poder {{i + 1}}</mat-label>
         <input matInput [formControlName]="i">
       </mat-form-field>
-      <button mat-mini-fab color="warn" type="button" (click)="removePower($event, i)">
+      <button mat-mini-fab color="warn" type="button" (click)="removePower(i)">
         <mat-icon>remove</mat-icon>
       </button>
     </div>
-    <button mat-raised-button color="accent" type="button" (click)="addPower($event)">+ Añadir Poder</button>
+    <button mat-raised-button color="accent" type="button" (click)="addPower()">+ Añadir Poder</button>
   </div>
   <button mat-raised-button color="primary" type="button" (click)="onSubmit()" [disabled]="!addHero.valid">Guardar Héroe</button>
 

@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SuperHerosService {
-  private API_URL = environment.API_URL;
+  API_URL = environment.API_URL;
 
   constructor(private http: HttpClient) { }
 

@@ -42,14 +42,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.toggleAddButton = true;
     });
 
-    // Actualiza el valor del filtro basado en el input del usuario
     this.searchControl.valueChanges
-      .pipe(
-        debounceTime(300) // Añade un debounce para limitar las actualizaciones rápidas
-      )
-      .subscribe((value) => {
-        // Cada vez que el valor cambie, actualiza el filtro compartido
-        this.sharedService.updateFilter(value);
+      .subscribe({
+        next: (value) =>
+        this.sharedService.updateFilter(value)
       });
   }
 
