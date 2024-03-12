@@ -1,6 +1,7 @@
 <div *ngIf="isLoading" class="spinner-container">
   <mat-spinner></mat-spinner>
 </div>
+<h1>{{!hero ? 'Crear Superhéroe' : 'Editar Superhéroe: ' + hero.name}}</h1>
 <form [formGroup]="addHero" (ngSubmit)="onSubmit()" class="hero-form" *ngIf="!isLoading">
   <!-- Campos individuales para Hero -->
   <mat-form-field appearance="fill">

@@ -2,6 +2,7 @@
   <div *ngIf="isLoading" class="spinner-container">
     <mat-spinner></mat-spinner>
   </div>
+  <h1 *ngIf="!isLoading">Listado de Superhéroes</h1>
   <div class="heroes-container" *ngIf="!isLoading">
     <app-super-hero *ngFor="let hero of filteredSuperheros" [hero]="hero"></app-super-hero>
   </div>
