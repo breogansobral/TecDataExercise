@@ -32,7 +32,7 @@ Get your local version of TecDataExercise up and running by navigating to the pr
 docker-compose up --build
 ```
 
-This will build and initiate containers for the MariaDB database, the NestJS backend, and the Angular frontend, making the full application accessible locally in the next URL [browser to local development](https//localhost:4200).
+This will build and initiate containers for the MariaDB database, the NestJS backend, and the Angular frontend, making the full application accessible locally in the next URL [browser to local development](http//localhost:4200).
 
 ## Running Tests
 
