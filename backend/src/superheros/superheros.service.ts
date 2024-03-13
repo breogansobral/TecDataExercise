@@ -39,7 +39,7 @@ export class SuperherosService {
 
       await Promise.all(powersPromises);
 
-      // Usar findOne para recargar la entidad Superhero y sus relaciones
+      // Use findOne to reload the Superhero entity and its relationships.
       const reloadedSuperhero = await manager.findOne(Superhero, {
         where: { id: superhero.id },
         relations: ["powers"]

@@ -72,6 +72,4 @@ describe('SuperHeroComponent', () => {
     expect(ageElement.textContent).toContain(component.hero.age.toString());
     expect(placeElement.textContent).toContain(component.hero.place);
   });
-
-  // Aquí puedes añadir más pruebas según sea necesario...
 });

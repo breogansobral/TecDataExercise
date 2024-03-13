@@ -29,7 +29,7 @@ export class SuperherosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Suscripción para obtener superhéroes y luego aplicar el filtro inicial
+
     let subscription = this.superherosService.getSuperheros().subscribe({
       next: (data) => {
         this.isLoading = true;
@@ -48,10 +48,8 @@ export class SuperherosComponent implements OnInit, OnDestroy {
       }
     });
 
-    // Guarda la suscripción
     this.subscriptions.push(subscription);
 
-    // Función para aplicar el filtro
     subscription = this.sharedService.currentFilter.subscribe({
       next: (filterValue: string) => {
         this.isLoading = true;
@@ -59,23 +57,19 @@ export class SuperherosComponent implements OnInit, OnDestroy {
           this.applyFilter(filterValue);
           this.isLoading = false;
         }, this.bounceTime)
-
-        // No necesitas ajustar isLoading aquí a menos que estés cargando algo específico
       },
       error: (error) => {
         console.error(error);
         this.isLoading = true;
         setTimeout(() => {
           this.isLoading = false;
-        }, this.bounceTime) // Asegúrate de manejar el estado de carga también en caso de error
+        }, this.bounceTime)
       }
     });
 
-    // Guarda la suscripción
     this.subscriptions.push(subscription);
   }
 
-  // Función auxiliar para aplicar el filtro a los superhéroes
   applyFilter(filterValue: string): void {
     this.filteredSuperheros = this.superheros.filter((hero) =>
       hero.name.toLowerCase().includes(filterValue.toLowerCase())

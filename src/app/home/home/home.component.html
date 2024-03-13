@@ -5,22 +5,9 @@
         [mode]="(isHandset$ | async) ? 'over' : 'side'"
         [opened]="(isHandset$ | async) === false"
         (backdropClick)="closeSidenav()"> <!-- Aquí agregamos el evento para cerrar el sidenav -->
-      <mat-nav-list>
-        <form class="contenedor">
-          <!-- Suponiendo que esto esté en tu home.component.html u otro template relevante -->
-          <button type="button" mat-raised-button color="primary" [routerLink]="!toggleAddButton ?  ['/home/add-hero'] : ['/home/super-heros']">
-            {{ !toggleAddButton ? 'Añadir Héroe': 'Lista Héroes'}}
-          </button>
-          <mat-form-field appearance="fill" class="filtro">
-            <mat-label>Filtrar</mat-label>
-            <input matInput
-                placeholder="Escribe para filtrar"
-                [formControl]="searchControl">
-            <button mat-icon-button matSuffix>
-              <mat-icon>search</mat-icon>
-            </button>
-          </mat-form-field>
-        </form>
+      <mat-nav-list class="contenedor">
+        <filter/>
+        <add-new-button/>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

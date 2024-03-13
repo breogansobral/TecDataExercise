@@ -12,42 +12,13 @@ import { SharedService } from 'src/app/_services/shared.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.sass']
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  @ViewChild('drawer') sidenav: MatSidenav | undefined;
-  toggleAddButton: boolean = false;
+export class HomeComponent {
+  @ViewChild('drawer') sidenav !: MatSidenav;
   routerSubscription: any;
-  searchControl: FormControl;
 
   constructor(
-    private breakpointObserver: BreakpointObserver,
-    private router: Router,
-    private sharedService: SharedService
-  ) {
-    this.searchControl = new FormControl('');
-  }
-  ngOnDestroy(): void {
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
-    }
-  }
-  ngOnInit(): void {
-    if(this.router.url.includes('add-hero'))
-        this.toggleAddButton = true;
-
-    this.routerSubscription = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.toggleAddButton = false;
-      if(this.router.url.includes('add-hero'))
-        this.toggleAddButton = true;
-    });
-
-    this.searchControl.valueChanges
-      .subscribe({
-        next: (value) =>
-        this.sharedService.updateFilter(value)
-      });
-  }
+    private breakpointObserver: BreakpointObserver
+  ) {}
 
   closeSidenav() {
     if (this.sidenav && this.sidenav.mode === 'over') {

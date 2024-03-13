@@ -25,7 +25,7 @@ describe('AddHeroComponent', () => {
       ],
       declarations: [AddHeroComponent],
       providers: [SuperHerosService],
-      schemas: [NO_ERRORS_SCHEMA] // Ignora elementos desconocidos, útil si usas componentes de Angular Material que no están directamente testeados
+      schemas: [NO_ERRORS_SCHEMA] // Ignore unknown elements, useful if you use Angular Material components that are not directly tested.
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddHeroComponent);
@@ -43,7 +43,7 @@ describe('AddHeroComponent', () => {
 
   it('name field validation', () => {
     const name = component.addHero.controls['name'];
-    expect(name.valid).toBeFalsy(); // Campo requerido
+    expect(name.valid).toBeFalsy();
     name.setValue('Test Hero');
     expect(name.valid).toBeTruthy();
   });

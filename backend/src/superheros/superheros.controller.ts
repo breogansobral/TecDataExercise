@@ -11,13 +11,13 @@ export class SuperherosController {
 
   @Get()
   findAll(): Promise<Superhero[]> {
-    // Endpoint para encontrar y devolver todos los superhéroes
+    // Endpoint to find and return all superheroes
     return this.superherosService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number): Promise<Superhero> {
-    // Endpoint para encontrar y devolver un superhéroe por su ID
+    // Endpoint to find and return a superhero by his ID
     return this.superherosService.findOne(id);
   }
 

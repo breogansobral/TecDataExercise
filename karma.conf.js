@@ -1,8 +1,8 @@
 module.exports = function(config) {
-  // Utiliza una variable de entorno para determinar si se ejecuta en Docker
+  // Uses an environment variable to determine whether to run in Docker
   const isDocker = process.env.DOCKER_ENV === '1';
 
-  // Configura los navegadores a utilizar. Utiliza ChromeHeadless en Docker; de lo contrario, Chrome.
+  // Configure the browsers to use. Use ChromeHeadless on Docker, otherwise Chrome.
   const browsers = isDocker ? ['ChromeCustom'] : ['Chrome'];
 
   config.set({
@@ -30,18 +30,18 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_DEBUG,
     autoWatch: !isDocker,
-    // En Docker, ejecutar una sola vez. Fuera de Docker, habilita autoWatch.
+    // In Docker, run only once. Outside Docker, enable autoWatch.
     singleRun: isDocker,
     restartOnFileChange: true,
     browsers: browsers,
     customLaunchers: {
       ChromeCustom: {
         base: 'ChromeHeadless',
-        // Se agregan flags recomendados para la ejecución en contenedores Docker y entornos CI.
+        // Recommended flags are added for running in Docker containers and CI environments.
         flags: [
           '--no-sandbox',
           '--disable-gpu',
-          // '--remote-debugging-port=9222' es útil para depuración, pero se puede omitir en CI.
+          // '--remote-debugging-port=9222' is useful for debugging, but can be omitted in CI.
           '--disable-setuid-sandbox',
           '--disable-dev-shm-usage',
           '--disable-web-security',

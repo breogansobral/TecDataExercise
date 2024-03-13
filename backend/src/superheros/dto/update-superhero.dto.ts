@@ -27,7 +27,7 @@ export class UpdateSuperheroDto {
   @IsUrl()
   readonly img?: string;
 
-  // Asume que queremos permitir actualizar los poderes por IDs
+  // Assumes we want to allow updating of proxies by IDs.
   @IsOptional()
   @IsArray()
   readonly powers?: string[];

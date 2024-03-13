@@ -1,0 +1,11 @@
+<form class="contenedor">
+  <mat-form-field appearance="fill" class="filtro">
+    <mat-label>Filtrar</mat-label>
+    <input matInput
+        placeholder="Escribe para filtrar"
+        [formControl]="searchControl">
+    <button mat-icon-button matSuffix>
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+</form>
