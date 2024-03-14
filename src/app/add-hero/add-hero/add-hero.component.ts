@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -7,16 +7,16 @@ import { SuperHerosService } from 'src/app/_services/super-heros.service';
 import { Hero } from 'src/app/models/hero';
 import { Power } from 'src/app/models/power';
 import { multipleValidator } from './custom-validation';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-hero',
   templateUrl: './add-hero.component.html',
   styleUrls: ['./add-hero.component.css']
 })
-export class AddHeroComponent implements OnInit {
-  superHeroService(superHeroService: any, arg1: string) {
-    throw new Error('Method not implemented.');
-  }
+export class AddHeroComponent implements OnInit, OnDestroy {
+
+  subscription !: Subscription;
   addHero!: FormGroup;
   isLoading: boolean = true;
   defaultImg: string = 'prueba.png';
@@ -29,6 +29,10 @@ export class AddHeroComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar
   ) {}
+  ngOnDestroy(): void {
+    if(this.subscription)
+      this.subscription.unsubscribe();
+  }
 
   ngOnInit() {
 
@@ -48,7 +52,7 @@ export class AddHeroComponent implements OnInit {
       powers: this.fb.array([...this.createPower()])
     });
 
-    this.superheroesService.getSuperheroById(lastSegment)
+    this.subscription = this.superheroesService.getSuperheroById(lastSegment)
       .subscribe({
         next: (hero: Hero | undefined) => {
           this.hero = hero;
@@ -56,7 +60,7 @@ export class AddHeroComponent implements OnInit {
             name: [!hero ? '' : hero.name, Validators.required],
             element: [!hero ? '' : hero.element, Validators.required],
             color: [!hero ? '' : hero.color, Validators.required],
-            age: [!hero ? '' : hero.age, [Validators.required, Validators.min(1), multipleValidator(2)]],
+            age: [!hero ? '' : hero.age, [Validators.required, Validators.min(1)]],
             place: [!hero ? '' : hero.place, Validators.required],
             img: ['prueba.png', Validators.required],
             powers: this.fb.array([...this.createPower(hero?.powers)])
