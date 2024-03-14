@@ -37,23 +37,6 @@ mat-card-content {
   top: 0px;
 }
 
-.card-actions mat-icon {
-  font-size: 24px;
-}
-
-.card-actions .edit-button mat-icon {
-  color: #8f8df7;
-}
-
-.card-actions .delete-button mat-icon {
-  color: #f8c27b;
-}
-
-.action-buttons {
-  display: flex;
-  justify-content: flex-end;
-}
-
 @media (max-width: 768px) {
   .hero-card {
     width: 350px;

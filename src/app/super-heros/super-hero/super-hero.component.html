@@ -4,12 +4,8 @@
     <mat-card-title>{{ hero.name }}</mat-card-title>
     <mat-card-subtitle>{{ hero.element }}</mat-card-subtitle>
     <mat-card-actions class="card-actions">
-      <button mat-icon-button class="edit-button" (click)="editHero(hero)" matTooltip="Editar" matTooltipPosition="above">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button class="delete-button" (click)="deleteHero(hero)" matTooltip="Borrar" matTooltipPosition="above">
-        <mat-icon>delete</mat-icon>
-      </button>
+      <edit-hero [hero]="hero" (editHeroEvent)="editHero($event)"/>
+      <delete-hero [hero]="hero" (deleteHeroEvent)="deleteHero($event)"/>
     </mat-card-actions>
   </mat-card-header>
   <img mat-card-image [src]="'assets/img/' + hero.img" alt="Photo of {{ hero.name }}">

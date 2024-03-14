@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { SuperHerosService } from 'src/app/_services/super-heros.service';
 import { Hero } from 'src/app/models/hero';
 import { Power } from 'src/app/models/power';
-import { multipleValidator } from './custom-validation';
 import { Subscription } from 'rxjs';
 
 @Component({

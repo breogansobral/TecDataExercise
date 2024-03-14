@@ -1,8 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { SharedService } from 'src/app/_services/shared.service';
 import { SuperHerosService } from 'src/app/_services/super-heros.service';
 import { Hero } from 'src/app/models/hero';
+import { ConfirmDialogComponent } from './confirm-dialog.component';
 
 @Component({
   selector: 'app-super-heros',
@@ -18,7 +22,11 @@ export class SuperherosComponent implements OnInit, OnDestroy {
 
   constructor(
     private superherosService: SuperHerosService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private router: Router,
+    private dialog: MatDialog,
+    private superHerosService: SuperHerosService,
+    private snackBar: MatSnackBar
   ) { }
   ngOnDestroy(): void {
     if(this.subscriptions.length)
@@ -29,7 +37,43 @@ export class SuperherosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.getSuperheros();
+  }
 
+  editHero(hero: Hero) {
+    this.router.navigate([`/home/add-hero/${hero.id}`]);
+  }
+
+  deleteHero(hero: Hero) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '250px',
+      data: { name: hero.name }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.superHerosService.deleteSuperhero(hero.id).subscribe({
+          next: () => {
+            this.snackBar.open('Superhéroe borrado exitosamente!', 'Cerrar', {
+              duration: 2000,
+            });
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+
+          },
+          error: (error) => {
+            console.log(error);
+            this.snackBar.open('Error al borrar superhéroe', 'Cerrar', {
+              duration: 2000,
+            });
+          }
+        });
+      }
+    });
+  }
+
+  getSuperheros() {
     let subscription = this.superherosService.getSuperheros().subscribe({
       next: (data) => {
         this.isLoading = true;

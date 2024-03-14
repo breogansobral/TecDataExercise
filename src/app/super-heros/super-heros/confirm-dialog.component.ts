@@ -11,7 +11,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
       <button mat-raised-button color="accent" [mat-dialog-close]="false">Cancelar</button>
     </mat-dialog-actions>
   `,
-  styleUrls: ['./super-hero.component.sass']
+  styleUrls: ['./super-heros.component.sass']
 })
 export class ConfirmDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: { name: string }) {}

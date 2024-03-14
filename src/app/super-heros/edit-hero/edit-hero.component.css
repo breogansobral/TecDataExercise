@@ -1,0 +1,7 @@
+mat-icon {
+  font-size: 24px;
+}
+
+.edit-button mat-icon {
+  color: #8f8df7;
+}
