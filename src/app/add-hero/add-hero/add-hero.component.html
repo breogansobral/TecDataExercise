@@ -6,36 +6,76 @@
   <!-- Campos individuales para Hero -->
   <mat-form-field appearance="fill">
     <mat-label>Nombre</mat-label>
-    <input matInput formControlName="name">
+    <input matInput type="text" name="name" formControlName="name">
+    <mat-error
+          *ngIf="
+            addHero.get('name')?.invalid &&
+            addHero.get('name')?.touched
+            "
+        >
+          Este campo es obligatorio.
+        </mat-error>
   </mat-form-field>
 
   <div class="form-row">
     <mat-form-field appearance="fill">
       <mat-label>Elemento</mat-label>
-      <input matInput formControlName="element">
+      <input matInput type="text" name="element" formControlName="element">
+      <mat-error
+          *ngIf="
+            addHero.get('element')?.invalid &&
+            addHero.get('element')?.touched
+            "
+        >
+          Este campo es obligatorio.
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Color</mat-label>
-      <input matInput formControlName="color">
+      <input matInput type="color" name="color" formControlName="color">
+      <mat-error
+          *ngIf="
+            addHero.get('color')?.invalid &&
+            addHero.get('color')?.touched
+            "
+        >
+          Este campo es obligatorio.
+        </mat-error>
     </mat-form-field>
   </div>
 
   <div class="form-row">
     <mat-form-field appearance="fill">
       <mat-label>Edad</mat-label>
-      <input matInput type="number" [min]="0" matInput formControlName="age">
+      <input matInput type="number" matInput formControlName="age">
+      <mat-error
+          *ngIf="
+            addHero.get('age')?.invalid &&
+            addHero.get('age')?.touched
+            "
+        >
+          Este campo es obligatorio, tiene que ser mayor que 1 y múltiplo de 2.
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Lugar</mat-label>
-      <input matInput formControlName="place">
+      <input matInput type="text" name="place" formControlName="place">
+      <mat-error
+          *ngIf="
+            addHero.get('place')?.invalid &&
+            addHero.get('place')?.touched
+            "
+        >
+          Este campo es obligatorio.
+        </mat-error>
     </mat-form-field>
   </div>
 
   <mat-form-field appearance="fill">
     <mat-label>Imagen (URL)</mat-label>
-    <input matInput class="image-url" [readonly]="true" formControlName="img">
+    <input matInput type="text" name="img" class="image-url" [readonly]="true" formControlName="img">
   </mat-form-field>
 
   <!-- Sección de Poderes ajustada para ocupar el ancho completo -->
@@ -43,7 +83,15 @@
     <div *ngFor="let power of powers.controls; let i = index" class="power-input">
       <mat-form-field appearance="fill">
         <mat-label>Poder {{i + 1}}</mat-label>
-        <input matInput [formControlName]="i">
+        <input matInput type="text" name="`power_${i}`" [formControlName]="i">
+        <mat-error
+          *ngIf="
+            addHero.get('`${i}`')?.invalid &&
+            addHero.get('`${i}`')?.touched
+            "
+        >
+          Este campo es obligatorio.
+        </mat-error>
       </mat-form-field>
       <button mat-mini-fab color="warn" type="button" (click)="removePower(i)">
         <mat-icon>remove</mat-icon>
@@ -51,6 +99,6 @@
     </div>
     <button mat-raised-button color="accent" type="button" (click)="addPower()">+ Añadir Poder</button>
   </div>
-  <button mat-raised-button color="primary" type="button" (click)="onSubmit()" [disabled]="!addHero.valid">Guardar Héroe</button>
+  <button mat-raised-button color="primary" type="button" (click)="onSubmit()" [disabled]="addHero.invalid">Guardar Héroe</button>
 
 </form>

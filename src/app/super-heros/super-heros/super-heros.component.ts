@@ -75,4 +75,8 @@ export class SuperherosComponent implements OnInit, OnDestroy {
       hero.name.toLowerCase().includes(filterValue.toLowerCase())
     );
   }
+
+  itemTrackBy(index: number, item: Hero) {
+    return item.id;
+  }
 }

@@ -4,7 +4,7 @@
         [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
         [mode]="(isHandset$ | async) ? 'over' : 'side'"
         [opened]="(isHandset$ | async) === false"
-        (backdropClick)="closeSidenav()"> <!-- Aquí agregamos el evento para cerrar el sidenav -->
+        (backdropClick)="closeSidenav()">
       <mat-nav-list class="contenedor">
         <filter/>
         <add-new-button/>

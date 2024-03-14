@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { SuperHerosService } from 'src/app/_services/super-heros.service';
 import { Hero } from 'src/app/models/hero';
 import { Power } from 'src/app/models/power';
+import { multipleValidator } from './custom-validation';
 
 @Component({
   selector: 'app-add-hero',
@@ -55,7 +56,7 @@ export class AddHeroComponent implements OnInit {
             name: [!hero ? '' : hero.name, Validators.required],
             element: [!hero ? '' : hero.element, Validators.required],
             color: [!hero ? '' : hero.color, Validators.required],
-            age: [!hero ? '' : hero.age, [Validators.required, Validators.min(1)]],
+            age: [!hero ? '' : hero.age, [Validators.required, Validators.min(1), multipleValidator(2)]],
             place: [!hero ? '' : hero.place, Validators.required],
             img: ['prueba.png', Validators.required],
             powers: this.fb.array([...this.createPower(hero?.powers)])
@@ -134,6 +135,8 @@ export class AddHeroComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if(this.addHero.invalid)
+      return;
     this.isLoading = true;
     const formControls = Object.keys(this.addHero.controls).filter(key => key !== 'img');
 
