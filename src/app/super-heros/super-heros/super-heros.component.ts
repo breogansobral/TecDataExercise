@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { SharedService } from 'src/app/_services/shared.service';
 import { SuperHerosService } from 'src/app/_services/super-heros.service';
@@ -21,9 +21,9 @@ export class SuperherosComponent implements OnInit, OnDestroy {
   bounceTime: number = 500;
 
   constructor(
-    private superherosService: SuperHerosService,
     private sharedService: SharedService,
     private router: Router,
+    private actRouter: ActivatedRoute,
     private dialog: MatDialog,
     private superHerosService: SuperHerosService,
     private snackBar: MatSnackBar
@@ -37,11 +37,16 @@ export class SuperherosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getSuperheros();
+    this.actRouter.data
+      .subscribe(({superHerosApi}) => {
+        this.superheros = superHerosApi
+      })
+    this.getSharedFilterValue();
   }
 
   editHero(hero: Hero) {
-    this.router.navigate([`/home/add-hero/${hero.id}`]);
+    const id = hero.id ?? '';
+    this.router.navigate([`/home/add-hero/${id}`]);
   }
 
   deleteHero(hero: Hero) {
@@ -73,28 +78,8 @@ export class SuperherosComponent implements OnInit, OnDestroy {
     });
   }
 
-  getSuperheros() {
-    let subscription = this.superherosService.getSuperheros().subscribe({
-      next: (data) => {
-        this.isLoading = true;
-        setTimeout(() => {
-          this.superheros = data;
-          this.applyFilter('');
-          this.isLoading = false;
-        }, this.bounceTime)
-      },
-      error: (error) => {
-        console.error(error);
-        this.isLoading = true;
-        setTimeout(() => {
-          this.isLoading = false;
-        }, this.bounceTime)
-      }
-    });
-
-    this.subscriptions.push(subscription);
-
-    subscription = this.sharedService.currentFilter.subscribe({
+  getSharedFilterValue() {
+    const subscription = this.sharedService.currentFilter.subscribe({
       next: (filterValue: string) => {
         this.isLoading = true;
         setTimeout(() => {

@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { SuperHerosService } from 'src/app/_services/super-heros.service';
 import { Hero } from 'src/app/models/hero';
 import { Power } from 'src/app/models/power';
@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class AddHeroComponent implements OnInit, OnDestroy {
 
+  @Input('id') heroId?: string;
   subscription !: Subscription;
   addHero!: FormGroup;
   isLoading: boolean = true;
@@ -25,6 +26,7 @@ export class AddHeroComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private superheroesService: SuperHerosService,
+    private actRouter: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar
   ) {}
@@ -34,13 +36,6 @@ export class AddHeroComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
-    const segments = this.router.url.split('/');
-    const lastSegment = segments[segments.length - 1];
-    this.initForm(+lastSegment);
-  }
-
-  initForm(lastSegment: number) {
     this.addHero = this.fb.group({
       name: [ '' , Validators.required],
       element: [ '' , Validators.required],
@@ -50,8 +45,17 @@ export class AddHeroComponent implements OnInit, OnDestroy {
       img: ['prueba.png', Validators.required],
       powers: this.fb.array([...this.createPower()])
     });
+    const heroId = this.actRouter.snapshot.paramMap.get('id');
+    if(heroId)
+      this.initForm(+heroId);
+    else
+      setTimeout(() => {
+        this.isLoading = false;
+      }, this.bounceTime);
+  }
 
-    this.subscription = this.superheroesService.getSuperheroById(lastSegment)
+  initForm(heroId: number) {
+    this.subscription = this.superheroesService.getSuperheroById(heroId)
       .subscribe({
         next: (hero: Hero | undefined) => {
           this.hero = hero;

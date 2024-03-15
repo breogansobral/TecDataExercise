@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { superHerosResolver } from '../super-heros/super-heros.resolver';
 const routes: Routes = [
   {
     path: '',
@@ -10,6 +11,8 @@ const routes: Routes = [
         path: 'super-heros',
         loadChildren: () =>
           import('src/app/super-heros/super-heros.module').then((file) => file.SuperHerosModule),
+        title: 'SuperHéroes',
+        resolve: { superHerosApi: superHerosResolver },
       },
       {
         path: 'add-hero',
