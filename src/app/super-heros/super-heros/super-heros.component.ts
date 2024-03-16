@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,7 +26,8 @@ export class SuperherosComponent implements OnInit, OnDestroy {
     private actRouter: ActivatedRoute,
     private dialog: MatDialog,
     private superHerosService: SuperHerosService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef
   ) { }
   ngOnDestroy(): void {
     if(this.subscriptions.length)
@@ -62,9 +63,8 @@ export class SuperherosComponent implements OnInit, OnDestroy {
             this.snackBar.open('Superhéroe borrado exitosamente!', 'Cerrar', {
               duration: 2000,
             });
-            setTimeout(() => {
-              window.location.reload();
-            }, 2000);
+            this.filteredSuperheros = this.filteredSuperheros.filter(element => element.id != hero.id);
+            this.superheros = this.superheros.filter(element => element.id != hero.id);
 
           },
           error: (error) => {
@@ -81,18 +81,10 @@ export class SuperherosComponent implements OnInit, OnDestroy {
   getSharedFilterValue() {
     const subscription = this.sharedService.currentFilter.subscribe({
       next: (filterValue: string) => {
-        this.isLoading = true;
-        setTimeout(() => {
-          this.applyFilter(filterValue);
-          this.isLoading = false;
-        }, this.bounceTime)
+        this.applyFilter(filterValue);
       },
       error: (error) => {
         console.error(error);
-        this.isLoading = true;
-        setTimeout(() => {
-          this.isLoading = false;
-        }, this.bounceTime)
       }
     });
 
@@ -103,9 +95,14 @@ export class SuperherosComponent implements OnInit, OnDestroy {
     this.filteredSuperheros = this.superheros.filter((hero) =>
       hero.name.toLowerCase().includes(filterValue.toLowerCase())
     );
+    console.log(this.superheros, this.filteredSuperheros);
   }
 
   itemTrackBy(index: number, item: Hero) {
     return item.id;
+  }
+
+  actualizarVista() {
+    this.cdr.detectChanges();
   }
 }

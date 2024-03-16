@@ -1,9 +1,6 @@
 <div class="super-heros">
-  <div *ngIf="isLoading" class="spinner-container">
-    <mat-spinner></mat-spinner>
-  </div>
-  <h1 *ngIf="!isLoading">Listado de Superhéroes</h1>
-  <div class="heroes-container" *ngIf="!isLoading">
+  <h1>Listado de Superhéroes</h1>
+  <div class="heroes-container">
     <super-hero (editHeroEvent)="editHero($event)" (deleteHeroEvent)="deleteHero($event)" *ngFor="let hero of filteredSuperheros; index as i; trackBy: itemTrackBy" [hero]="hero"></super-hero>
   </div>
 </div>

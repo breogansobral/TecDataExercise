@@ -48,10 +48,6 @@ export class AddHeroComponent implements OnInit, OnDestroy {
     const heroId = this.actRouter.snapshot.paramMap.get('id');
     if(heroId)
       this.initForm(+heroId);
-    else
-      setTimeout(() => {
-        this.isLoading = false;
-      }, this.bounceTime);
   }
 
   initForm(heroId: number) {
@@ -68,16 +64,10 @@ export class AddHeroComponent implements OnInit, OnDestroy {
             img: ['prueba.png', Validators.required],
             powers: this.fb.array([...this.createPower(hero?.powers)])
           });
-          setTimeout(() => {
-            this.isLoading = false;
-          }, this.bounceTime);
 
         },
         error: error => {
           console.log(error);
-          setTimeout(() => {
-            this.isLoading = false;
-          }, this.bounceTime);
         }
       });
   }

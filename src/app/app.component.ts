@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Hero } from './models/hero';
+import { ChangeDetectorRef, Component, NgZone, inject } from '@angular/core';
+import { LoadService } from './loading/load.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +8,9 @@ import { Hero } from './models/hero';
 })
 export class AppComponent {
   title = 'TecDataExercise';
+
+  constructor(
+    public loadService: LoadService,
+  ) {
+  }
 }
