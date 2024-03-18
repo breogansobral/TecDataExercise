@@ -60,12 +60,8 @@ export class SuperherosComponent implements OnInit, OnDestroy {
       if (result) {
         this.superHerosService.deleteSuperhero(hero.id).subscribe({
           next: () => {
-            this.snackBar.open('Superhéroe borrado exitosamente!', 'Cerrar', {
-              duration: 2000,
-            });
             this.filteredSuperheros = this.filteredSuperheros.filter(element => element.id != hero.id);
             this.superheros = this.superheros.filter(element => element.id != hero.id);
-
           }
         });
       }

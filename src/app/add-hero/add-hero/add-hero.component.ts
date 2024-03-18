@@ -107,9 +107,6 @@ export class AddHeroComponent implements OnInit, OnDestroy {
     this.superheroesService.updateSuperhero(this.hero ? this.hero.id : 0, hero).subscribe({
       next: (response) => {
         this.router.navigate(['/home/super-heros']);
-        this.snackBar.open('Superhéroe modificado exitosamente!', 'Cerrar', {
-          duration: 2000,
-        });
       }
     });
   }
