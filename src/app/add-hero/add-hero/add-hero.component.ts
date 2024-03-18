@@ -99,17 +99,7 @@ export class AddHeroComponent implements OnInit, OnDestroy {
     this.superheroesService.addSuperhero(hero).subscribe({
       next: (response) => {
         this.router.navigate(['/home/super-heros']);
-        this.snackBar.open('Superhéroe añadido exitosamente!', 'Cerrar', {
-          duration: 2000,
-        });
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error('Error al añadir superhéroe', error);
-        this.isLoading = false;
-        this.snackBar.open('Error al añadir superhéroe', 'Cerrar', {
-          duration: 2000,
-        });
-      },
+      }
     });
   }
 
@@ -120,14 +110,7 @@ export class AddHeroComponent implements OnInit, OnDestroy {
         this.snackBar.open('Superhéroe modificado exitosamente!', 'Cerrar', {
           duration: 2000,
         });
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error('Error al modificar superhéroe', error);
-        this.isLoading = false;
-        this.snackBar.open('Error al modificar superhéroe', 'Cerrar', {
-          duration: 2000,
-        });
-      },
+      }
     });
   }
 

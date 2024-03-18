@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorPageModule } from './error-page/error-page.module';
 import { LoadingInterceptor } from './loading/load.interceptor';
 import { LoadingModule } from './loading/loading.module';
+import { NotificationInterceptor } from './notification/notification.interceptor';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,10 @@ import { LoadingModule } from './loading/loading.module';
     ErrorPageModule,
     LoadingModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }],
+  providers: [
+              { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+              { provide: HTTP_INTERCEPTORS, useClass: NotificationInterceptor, multi: true,}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

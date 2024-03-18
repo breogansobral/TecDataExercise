@@ -66,12 +66,6 @@ export class SuperherosComponent implements OnInit, OnDestroy {
             this.filteredSuperheros = this.filteredSuperheros.filter(element => element.id != hero.id);
             this.superheros = this.superheros.filter(element => element.id != hero.id);
 
-          },
-          error: (error) => {
-            console.log(error);
-            this.snackBar.open('Error al borrar superhéroe', 'Cerrar', {
-              duration: 2000,
-            });
           }
         });
       }
@@ -82,9 +76,6 @@ export class SuperherosComponent implements OnInit, OnDestroy {
     const subscription = this.sharedService.currentFilter.subscribe({
       next: (filterValue: string) => {
         this.applyFilter(filterValue);
-      },
-      error: (error) => {
-        console.error(error);
       }
     });
 
