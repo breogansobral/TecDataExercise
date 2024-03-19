@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { SuperherosService } from './superheros.service';
 import { Superhero } from './entities/superhero.entity';
 import { CreateSuperheroDto } from './dto/create-superhero.dto';
@@ -10,9 +10,8 @@ export class SuperherosController {
   constructor(private readonly superherosService: SuperherosService) {}
 
   @Get()
-  findAll(): Promise<Superhero[]> {
-    // Endpoint to find and return all superheroes
-    return this.superherosService.findAll();
+  findAll(@Query('filter') filter: string): Promise<Superhero[]> {
+      return this.superherosService.findAllFiltered(filter);
   }
 
   @Get(':id')
@@ -40,4 +39,3 @@ export class SuperherosController {
   }
 
 }
-

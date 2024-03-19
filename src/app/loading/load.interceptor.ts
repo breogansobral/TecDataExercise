@@ -9,9 +9,14 @@ import { LoadService } from './load.service';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
-  constructor(private loadService: LoadService) {}
+  constructor(
+    private loadService: LoadService
+  ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (req.headers.get('X-LOADING') === 'false') {
+      return next.handle(req);
+    }
     this.loadService.show();
     return next.handle(req).pipe(
       delay(500),

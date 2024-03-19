@@ -6,7 +6,7 @@
         [opened]="(isHandset$ | async) === false"
         (backdropClick)="closeSidenav()">
       <mat-nav-list class="contenedor">
-        <filter/>
+        <filter (filterEvent)="sendFilter($event)"/>
         <add-new-button/>
       </mat-nav-list>
     </mat-sidenav>

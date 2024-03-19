@@ -4,7 +4,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { SuperHerosService } from 'src/app/_services/super-heros.service';
+import { SuperHerosService } from 'src/app/super-heros/super-heros.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('SuperherosComponent', () => {

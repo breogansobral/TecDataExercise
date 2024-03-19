@@ -3,7 +3,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { SuperHerosService } from 'src/app/_services/super-heros.service';
+import { SuperHerosService } from 'src/app/super-heros/super-heros.service';
 import { Hero } from 'src/app/models/hero';
 import { Power } from 'src/app/models/power';
 import { Subscription } from 'rxjs';

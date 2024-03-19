@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { SharedService } from 'src/app/_services/shared.service';
 
 @Component({
   selector: 'filter',
@@ -9,10 +8,11 @@ import { SharedService } from 'src/app/_services/shared.service';
 })
 export class FilterComponent implements OnInit {
 
+  @Output() filterEvent: EventEmitter<string> = new EventEmitter<string>();
+
   searchControl: FormControl;
 
   constructor(
-    private sharedService: SharedService
   ) {
     this.searchControl = new FormControl('');
   }
@@ -20,8 +20,8 @@ export class FilterComponent implements OnInit {
   ngOnInit(): void {
     this.searchControl.valueChanges
       .subscribe({
-        next: (value) =>
-        this.sharedService.updateFilter(value)
+        next: (filter) =>
+        this.filterEvent.emit(filter)
       });
   }
 

@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { SharedService } from 'src/app/_services/shared.service';
-import { SuperHerosService } from 'src/app/_services/super-heros.service';
+import { SuperHerosService } from 'src/app/super-heros/super-heros.service';
 import { Hero } from 'src/app/models/hero';
 import { ConfirmDialogComponent } from './confirm-dialog.component';
+import { Observable, map } from 'rxjs';
+import { SharedService } from 'src/app/shared/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-super-heros',
@@ -14,7 +14,7 @@ import { ConfirmDialogComponent } from './confirm-dialog.component';
   styleUrls: ['./super-heros.component.sass']
 })
 export class SuperherosComponent implements OnInit, OnDestroy {
-  superheros: Hero[] = [];
+  superheros !: Observable<Hero[]>;
   filteredSuperheros: Hero[] = [];
   subscriptions: Subscription[] = [];
   isLoading = true;
@@ -23,10 +23,8 @@ export class SuperherosComponent implements OnInit, OnDestroy {
   constructor(
     private sharedService: SharedService,
     private router: Router,
-    private actRouter: ActivatedRoute,
     private dialog: MatDialog,
     private superHerosService: SuperHerosService,
-    private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef
   ) { }
   ngOnDestroy(): void {
@@ -38,10 +36,6 @@ export class SuperherosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.actRouter.data
-      .subscribe(({superHerosApi}) => {
-        this.superheros = superHerosApi
-      })
     this.getSharedFilterValue();
   }
 
@@ -60,8 +54,9 @@ export class SuperherosComponent implements OnInit, OnDestroy {
       if (result) {
         this.superHerosService.deleteSuperhero(hero.id).subscribe({
           next: () => {
-            this.filteredSuperheros = this.filteredSuperheros.filter(element => element.id != hero.id);
-            this.superheros = this.superheros.filter(element => element.id != hero.id);
+            this.superheros.pipe(
+              map( (heros) => heros.filter( filterHero => filterHero.id !== hero.id))
+            );
           }
         });
       }
@@ -79,10 +74,7 @@ export class SuperherosComponent implements OnInit, OnDestroy {
   }
 
   applyFilter(filterValue: string): void {
-    this.filteredSuperheros = this.superheros.filter((hero) =>
-      hero.name.toLowerCase().includes(filterValue.toLowerCase())
-    );
-    console.log(this.superheros, this.filteredSuperheros);
+    this.superheros = this.superHerosService.getSuperheros(filterValue);
   }
 
   itemTrackBy(index: number, item: Hero) {

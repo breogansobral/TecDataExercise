@@ -1,6 +1,11 @@
 <div class="super-heros">
   <h1>Listado de Superhéroes</h1>
   <div class="heroes-container">
-    <super-hero (editHeroEvent)="editHero($event)" (deleteHeroEvent)="deleteHero($event)" *ngFor="let hero of filteredSuperheros; index as i; trackBy: itemTrackBy" [hero]="hero"></super-hero>
+    <super-hero
+      (editHeroEvent)="editHero($event)"
+      (deleteHeroEvent)="deleteHero($event)"
+      *ngFor="let hero of superheros | async; index as i; trackBy: itemTrackBy"
+      [hero]="hero"
+    ></super-hero>
   </div>
 </div>

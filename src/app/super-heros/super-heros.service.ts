@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Hero } from '../models/hero';
 import { environment } from 'src/environments/environment';
 
@@ -13,8 +13,10 @@ export class SuperHerosService {
 
   constructor(private http: HttpClient) { }
 
-  getSuperheros(): Observable<Hero[]> {
-    return this.http.get< Hero[]>(`${this.API_URL}superheros`);
+  getSuperheros(filterValue?: string): Observable<Hero[]> {
+    const headers = new HttpHeaders().set('X-LOADING', 'false');
+    const filter = filterValue ? `?filter=${filterValue}` : '';
+    return this.http.get<Hero[]>(`${this.API_URL}superheros${filter}`, { headers });
   }
 
   getSuperheroById(id: number): Observable<Hero | undefined>{
@@ -23,11 +25,11 @@ export class SuperHerosService {
     );
   }
 
-  addSuperhero(superhero: Hero): Observable<Object> {
-    return this.http.post(`${this.API_URL}superheros`, superhero);
+  addSuperhero(superhero: Hero): Observable<Hero> {
+    return this.http.post<Hero>(`${this.API_URL}superheros`, superhero);
   }
 
-  deleteSuperhero(id: number): Observable<any> {
+  deleteSuperhero(id: number): Observable<unknown> {
     return this.http.delete(`${this.API_URL}superheros/${id}`);
   }
 

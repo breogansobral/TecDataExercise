@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Superhero } from './entities/superhero.entity';
-import { Connection, Repository } from 'typeorm';
+import { Connection, Repository, ILike } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Power } from 'src/powers/entities/power.entity';
 import { CreateSuperheroDto } from './dto/create-superhero.dto';
@@ -102,9 +102,16 @@ export class SuperherosService {
     }
   }
 
-  async findAll(): Promise<Superhero[]> {
-    // No changes needed here
-    return await this.superheroRepository.find({ relations: ['powers'] });
+  async findAllFiltered(filter: string): Promise<Superhero[]> {
+    if (!filter) {
+        return this.superheroRepository.find({ relations: ['powers'] });
+    }
+    return this.superheroRepository.find({
+        relations: ['powers'],
+        where: [
+            { name: ILike(`%${filter}%`) },
+        ],
+    });
   }
 
   async findOne(id: number): Promise<Superhero> {

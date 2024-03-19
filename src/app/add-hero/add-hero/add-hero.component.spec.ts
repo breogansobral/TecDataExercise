@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { SuperHerosService } from 'src/app/_services/super-heros.service';
+import { SuperHerosService } from 'src/app/super-heros/super-heros.service';
 
 describe('AddHeroComponent', () => {
   let component: AddHeroComponent;
