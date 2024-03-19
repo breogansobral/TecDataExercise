@@ -54,8 +54,11 @@ export class SuperherosComponent implements OnInit, OnDestroy {
       if (result) {
         this.superHerosService.deleteSuperhero(hero.id).subscribe({
           next: () => {
-            this.superheros.pipe(
-              map( (heros) => heros.filter( filterHero => filterHero.id !== hero.id))
+            this.superheros = this.superheros.pipe(
+              map( (heros) => {
+                console.log(heros, hero.id, 'MAPFILTER');
+                return heros.filter( filterHero => filterHero.id !== hero.id)
+              })
             );
           }
         });
