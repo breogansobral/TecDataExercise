@@ -96,6 +96,6 @@
     </div>
     <button mat-raised-button color="accent" type="button" (click)="addPower()">+ Añadir Poder</button>
   </div>
-  <button mat-raised-button color="primary" type="button" (click)="onSubmit()" [disabled]="addHero.invalid">Guardar Héroe</button>
+  <button mat-raised-button color="primary" type="button" (click)="onSubmit()" [disabled]="addHero.invalid || powers.controls.length === 0">Guardar Héroe</button>
 
 </form>

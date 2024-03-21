@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { SuperHerosService } from 'src/app/super-heros/super-heros.service';
@@ -13,9 +13,8 @@ import { Router } from '@angular/router';
   templateUrl: './super-heros.component.html',
   styleUrls: ['./super-heros.component.sass']
 })
-export class SuperherosComponent implements OnInit, OnDestroy {
+export class SuperherosComponent implements OnInit, OnDestroy, AfterViewInit {
   superheros !: Observable<Hero[]>;
-  filteredSuperheros: Hero[] = [];
   subscriptions: Subscription[] = [];
   isLoading = true;
   bounceTime: number = 500;
@@ -27,6 +26,9 @@ export class SuperherosComponent implements OnInit, OnDestroy {
     private superHerosService: SuperHerosService,
     private cdr: ChangeDetectorRef
   ) { }
+  ngAfterViewInit(): void {
+    this.sharedService.sendSuperheros(this.superheros);
+  }
   ngOnDestroy(): void {
     if(this.subscriptions.length)
       this.subscriptions
@@ -54,13 +56,20 @@ export class SuperherosComponent implements OnInit, OnDestroy {
       if (result) {
         this.superHerosService.deleteSuperhero(hero.id).subscribe({
           next: () => {
-            this.superheros = this.superheros.pipe(
-              map( (heros) => heros.filter( filterHero => filterHero.id !== hero.id) )
-            );
+            this.superheros = this.sharedService
+              .sendSuperheros(
+                this.filterSuperheros(hero.id)
+              );
           }
         });
       }
     });
+  }
+
+  private filterSuperheros(id: number) {
+    return this.superheros.pipe(
+      map( (heros) => heros.filter( filterHero => filterHero.id !== id))
+    );
   }
 
   getSharedFilterValue() {
@@ -74,7 +83,8 @@ export class SuperherosComponent implements OnInit, OnDestroy {
   }
 
   applyFilter(filterValue: string): void {
-    this.superheros = this.superHerosService.getSuperheros(filterValue);
+    this.superheros =
+      this.superHerosService.getSuperheros(filterValue);
   }
 
   itemTrackBy(index: number, item: Hero) {

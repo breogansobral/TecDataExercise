@@ -24,7 +24,6 @@ export class SuperHeroComponent {
   }
 
   deleteHero(hero: Hero) {
-    console.log(hero)
     this.deleteHeroEvent.emit(hero);
   }
 }

@@ -14,11 +14,14 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   imports: [
     CommonModule,
     LayoutModule,
+    MatAutocompleteModule,
+    MatInputModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -27,7 +30,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HttpClientModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule,
     MatChipsModule,
     MatToolbarModule,
     MatTooltipModule,
@@ -38,6 +40,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     CommonModule,
     LayoutModule,
     MatToolbarModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,

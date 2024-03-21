@@ -2,8 +2,16 @@
   <mat-form-field appearance="fill" class="filtro">
     <mat-label>Filtrar</mat-label>
     <input matInput
+        type="text"
         placeholder="Escribe para filtrar"
-        [formControl]="searchControl">
+        aria-label="Nombre de Superhéroe"
+        [formControl]="searchControl"
+        [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let hero of suggestedSuperheros$ | async" [value]="hero.name">
+        {{ hero.name }}
+      </mat-option>
+    </mat-autocomplete>
     <button mat-icon-button matSuffix>
       <mat-icon>search</mat-icon>
     </button>

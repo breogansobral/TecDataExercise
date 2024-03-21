@@ -19,7 +19,6 @@ export class NotificationInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       tap((event: HttpEvent<any>) => {
-        console.log(request);
         if (event instanceof HttpResponse && event.status === 201) {
           this.snackBar.open(`Se ha creado el SuperHeroe: ${event.body.name}`, 'Cerrar', {
             duration: 2000,
