@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, map, of, withLatestFrom } from 'rxjs';
+import { Observable, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { Hero } from 'src/app/models/hero';
 import { SharedService } from 'src/app/shared/shared.service';
 import { SuperHerosService } from 'src/app/super-heros/super-heros.service';
@@ -32,24 +32,24 @@ export class FilterComponent implements OnInit {
   }
 
   private initSuggestions() {
-    this.superheros$ = this.superherosService.getSuperheros();
-    this.suggestedSuperheros$ = this.superheros$
-      .pipe(
-        withLatestFrom(this.suggestedSuperheros$),
-        map(([newHeros, lastHeros]) => this.deleteDuplicatedByName(newHeros))
-      );
+    const superheros$ = this.superherosService.getSuperheros();
+    this.fillSuggestedSuperheros(superheros$);
   }
 
   private subscribeSuggestionsSharedService() {
     this.sharedService.superheros$
       .subscribe({
-        next: heros$ => {
-          this.suggestedSuperheros$ = heros$.pipe(
-            withLatestFrom(this.suggestedSuperheros$),
-            map(([newHeros, lastHeros]) =>  this.deleteDuplicatedByName(newHeros))
-          );
-
+        next: superheros$ => {
+          this.fillSuggestedSuperheros(superheros$)
         }
+      });
+  }
+
+  private fillSuggestedSuperheros(superheros$: Observable<Hero[]>) {
+    superheros$.
+      subscribe(heros => {
+        this.superheros$ = of(heros);
+        this.suggestedSuperheros$ = of(heros);
       });
   }
 
